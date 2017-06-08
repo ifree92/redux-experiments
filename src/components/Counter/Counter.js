@@ -23,13 +23,18 @@ const store = createStore(reducer);
 
 // ============= redux actions =============
 
-const incrementAction = {type: "INCREMENT", amount: 1};
-const decrementAction = {type: "DECREMENT", amount: 1};
-const resetAction = {type: "RESET"};
+const incrementAction = (amount) => { return {type: "INCREMENT", amount} };
+const decrementAction = (amount) => { return {type: "DECREMENT", amount} };
+const resetAction = () => { return {type: "RESET"} };
 
 // ============= /redux actions =============
 
 export default class extends Component {
+
+    constructor() {
+        super();
+        this.state = {amount: 1};
+    }
 
     componentDidMount() {
         store.subscribe(() => {
@@ -38,16 +43,25 @@ export default class extends Component {
     }
 
     increment = () => {
-        store.dispatch(incrementAction);
+        store.dispatch(incrementAction(this.state.amount));
     };
 
 
     decrement = () => {
-        store.dispatch(decrementAction);
+        store.dispatch(decrementAction(this.state.amount));
     };
 
     reset = () => {
-        store.dispatch(resetAction);
+        store.dispatch(resetAction());
+    };
+
+    onKeyDownAmount = (event) => {
+        event.preventDefault();
+        if (event.keyCode === 38) {
+            this.setState({amount: this.state.amount + 1});
+        } else if (event.keyCode === 40) {
+            this.setState({amount: this.state.amount - 1});
+        }
     };
 
     render() {
@@ -59,6 +73,7 @@ export default class extends Component {
                     <div className="reset" onClick={this.reset}>Reset</div>
                     <div className="increment" onClick={this.increment}>+</div>
                 </div>
+                <input onKeyDown={this.onKeyDownAmount} value={this.state.amount} readOnly={true} type="text" ref="amount" size="1"/>
             </div>
         )
     }
