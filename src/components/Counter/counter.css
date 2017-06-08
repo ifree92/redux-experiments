@@ -1,0 +1,61 @@
+.counter {
+    color: #fffeff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.counter .count {
+    font-size: 3em;
+    margin-bottom: 30px;
+}
+
+.counter .buttons {
+
+    display: flex;
+    flex-direction: row;
+}
+.counter .buttons .decrement,
+.counter .buttons .increment,
+.counter .buttons .reset {
+    background-color: #7849be;
+    width: 110px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    transition: all .1s;
+    user-select: none;
+    cursor: pointer;
+
+}
+
+.counter .buttons .decrement:hover,
+.counter .buttons .increment:hover,
+.counter .buttons .reset:hover {
+    background-color: #623b9b;
+    box-shadow: 0 0 20px rgba(0,0,0, .1);
+}
+
+.counter .buttons .decrement:active,
+.counter .buttons .increment:active,
+.counter .buttons .reset:active {
+    background-color: #4a2f78;
+    box-shadow: 0 0 20px rgba(0,0,0, .4);
+}
+
+.counter .buttons .decrement {
+    margin-right: 10px;
+}
+
+.counter .buttons .reset {
+    margin-right: 10px;
+}
+
+.counter .buttons .increment {
+
+}
