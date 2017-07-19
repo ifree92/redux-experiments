@@ -1,58 +1,31 @@
 import "./counter.css";
 import React, {Component} from "react";
-import {createStore} from "../redux";
-
-// ============= reducer =============
-
-function reducer(state = {count: 0}, action) {
-    switch (action.type) {
-        case "INCREMENT":
-            return {count: state.count + action.amount};
-        case "DECREMENT":
-            return {count: state.count - action.amount};
-        case "RESET":
-            return {count: 0};
-        default:
-            return state;
-    }
-}
-
-const store = createStore(reducer);
-
-// ============= /reducer =============
-
-// ============= redux actions =============
-
-const incrementAction = (amount) => { return {type: "INCREMENT", amount} };
-const decrementAction = (amount) => { return {type: "DECREMENT", amount} };
-const resetAction = () => { return {type: "RESET"} };
-
-// ============= /redux actions =============
+import actions from "../../redux/actions";
 
 export default class extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {amount: 1};
     }
 
     componentDidMount() {
-        store.subscribe(() => {
+        this.props.store.subscribe(() => {
             this.forceUpdate();
         });
     }
 
     increment = () => {
-        store.dispatch(incrementAction(this.state.amount));
+        this.props.store.dispatch(actions.incrementAction(this.state.amount));
     };
 
 
     decrement = () => {
-        store.dispatch(decrementAction(this.state.amount));
+        this.props.store.dispatch(actions.decrementAction(this.state.amount));
     };
 
     reset = () => {
-        store.dispatch(resetAction());
+        this.props.store.dispatch(actions.resetAction());
     };
 
     onKeyDownAmount = (event) => {
@@ -67,7 +40,7 @@ export default class extends Component {
     render() {
         return (
             <div className="counter">
-                <div className="count">{store.getState().count}</div>
+                <div className="count">{this.props.store.getState().count}</div>
                 <div className="buttons">
                     <div className="decrement" onClick={this.decrement}>-</div>
                     <div className="reset" onClick={this.reset}>Reset</div>

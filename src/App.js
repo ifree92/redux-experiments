@@ -5,7 +5,7 @@ import Counter from  "./components/Counter";
 class App extends Component {
   render() {
     return (
-        <Counter/>
+        <Counter store={this.props.store}/>
     );
   }
 }
