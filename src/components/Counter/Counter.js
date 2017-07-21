@@ -1,6 +1,5 @@
 import "./counter.css";
 import React, {Component} from "react";
-import actions from "../../redux/actions";
 
 export default class extends Component {
 
@@ -8,25 +7,6 @@ export default class extends Component {
         super(props);
         this.state = {amount: 1};
     }
-
-    componentDidMount() {
-        this.props.store.subscribe(() => {
-            this.forceUpdate();
-        });
-    }
-
-    increment = () => {
-        this.props.store.dispatch(actions.incrementAction(this.state.amount));
-    };
-
-
-    decrement = () => {
-        this.props.store.dispatch(actions.decrementAction(this.state.amount));
-    };
-
-    reset = () => {
-        this.props.store.dispatch(actions.resetAction());
-    };
 
     onKeyDownAmount = (event) => {
         event.preventDefault();
@@ -40,11 +20,11 @@ export default class extends Component {
     render() {
         return (
             <div className="counter">
-                <div className="count">{this.props.store.getState().count}</div>
+                <div className="count">{this.props.count}</div>
                 <div className="buttons">
-                    <div className="decrement" onClick={this.decrement}>-</div>
-                    <div className="reset" onClick={this.reset}>Reset</div>
-                    <div className="increment" onClick={this.increment}>+</div>
+                    <div className="decrement" onClick={() => this.props.decrement(this.state.amount)}>-</div>
+                    <div className="reset" onClick={this.props.reset}>Reset</div>
+                    <div className="increment" onClick={() => this.props.increment(this.state.amount)}>+</div>
                 </div>
                 <input onKeyDown={this.onKeyDownAmount} value={this.state.amount} readOnly={true} type="text" ref="amount" size="1"/>
             </div>

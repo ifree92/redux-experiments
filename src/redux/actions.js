@@ -1,5 +1,11 @@
-export default {
-    incrementAction: (amount) => { return {type: "INCREMENT", amount} },
-    decrementAction: (amount) => { return {type: "DECREMENT", amount} },
-    resetAction: () => { return {type: "RESET"} }
+export const incrementAction = (amount) => {
+    return {type: "INCREMENT", amount};
+}
+
+export const decrementAction = (amount) => {
+    return {type: "DECREMENT", amount};
+}
+
+export const resetAction = () => {
+    return {type: "RESET"};
 }
